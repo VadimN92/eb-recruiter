@@ -16,3 +16,17 @@
 const Route = use('Route')
 
 Route.on('/').render('home')
+
+Route.get('/complaints', 'ComplaintController.index')
+
+Route.get('/complaints/create', 'ComplaintController.create')
+
+Route.get('/complaints/edit/:id', 'ComplaintController.edit')
+
+Route.get('/complaints/:id', 'ComplaintController.details')
+
+Route.post('/complaints', 'ComplaintController.store')
+
+Route.put('/complaints/:id', 'ComplaintController.update')
+
+Route.delete('/complaints/:id', 'ComplaintController.destroy')
