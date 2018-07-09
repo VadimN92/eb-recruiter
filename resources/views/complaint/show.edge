@@ -1,0 +1,27 @@
+@layout('main')
+
+@section('content')
+<h1>Details page</h1>
+  <p>Recruiter name: {{complaint.recruiter_name}}</p>
+  <p>City: {{complaint.city}}</p>
+  <p>Description: {{complaint.body}}</p>
+
+  <div class="comments">
+    <ul class="list-group">
+      @each(comment in comments)
+      <li class="list-group-item">
+        {{comment.id}}
+      </li>
+      @endeach
+    </ul>
+
+    <form action="/comments" method="POST">
+      <div class="form-group">
+        <textarea name="body" class="form-control" placeholder="Body">{{ old('body', '') }}</textarea>
+        {{ elIf('<span class="text-danger">$self</span>', getErrorFor('body'), hasErrorFor('body')) }}
+      </div>
+      <button class="btn btn-primary" type="submit">Comment</button>
+    </form>
+  </div>
+
+@endsection

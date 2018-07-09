@@ -6,19 +6,19 @@
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th scope="col">Recruiter Name</th>
+      <th scope="col">City</th>
+      <th scope="col">Description</th>
+      <th scope="col">Details</th>
     </tr>
   </thead>
   <tbody>
     @each(complaint in complaints)
       <tr>
-        <th scope="row">{{complaint.id}}</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
+        <td>{{complaint.recruiter_name}}</td>
+        <td>{{complaint.city}}</td>
+        <td>{{complaint.body}}</td>
+        <td><a href="/complaints/{{complaint.id}}">More</a></td>
       </tr>
     @endeach
   </tbody>

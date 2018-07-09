@@ -23,6 +23,10 @@ class CommentController {
    * POST comments
    */
   async store ({ request, response }) {
+
+    console.log(request.all());
+
+    return response.redirect('back')
   }
 
   /**

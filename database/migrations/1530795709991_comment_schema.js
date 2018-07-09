@@ -7,7 +7,7 @@ class CommentSchema extends Schema {
     this.create('comments', (table) => {
       table.increments()
       table.string('body')
-      table.string('complain_id')
+      table.string('complaint_id')
       table.timestamps()
     })
   }

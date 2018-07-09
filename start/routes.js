@@ -23,10 +23,13 @@ Route.get('/complaints/create', 'ComplaintController.create')
 
 Route.get('/complaints/edit/:id', 'ComplaintController.edit')
 
-Route.get('/complaints/:id', 'ComplaintController.details')
+Route.get('/complaints/:id', 'ComplaintController.show')
 
 Route.post('/complaints', 'ComplaintController.store')
 
 Route.put('/complaints/:id', 'ComplaintController.update')
 
 Route.delete('/complaints/:id', 'ComplaintController.destroy')
+
+
+Route.post('/comments', 'CommentController.store')

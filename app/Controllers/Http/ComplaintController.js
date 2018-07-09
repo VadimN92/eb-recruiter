@@ -14,10 +14,10 @@ class ComplaintController {
   async index ({ request, response, view }) {
     const complaints = await Complaint.all()
 
-    console.log('complaints', complaints);
+    console.log('complaints', complaints.toJSON());
 
     return view.render('complaint/list', {
-      complaints: [{id: 1}, {id: 2}]
+      complaints: complaints.toJSON()
     })
   }
 
@@ -33,7 +33,7 @@ class ComplaintController {
    * Create/save a new complaint.
    * POST complaints
    */
-  async store ({ request, response }) {
+  async store ({ request, response, session }) {
     console.log(request.all());
     const validation = await validate(request.all(), {
       recruiter_name: 'required|min:3|max:80',
@@ -43,6 +43,7 @@ class ComplaintController {
 
     if(validation.fails()) {
       console.error("Validation error");
+      session.withErrors(validation.messages()).flashAll()
       return response.redirect('back')
     }
 
@@ -63,6 +64,19 @@ class ComplaintController {
    * GET complaints/:id
    */
   async show ({ params, request, response, view }) {
+
+    const complaint = await Complaint.find(params.id)
+
+    console.log(complaint);
+
+    return view.render('complaint/show', {
+      complaint,
+      comments: [
+        {id: 1},
+        {id: 2},
+        {id: 3}
+      ]
+    })
   }
 
   /**
