@@ -1,6 +1,7 @@
 'use strict'
 
 const Complaint = use('App/Models/Complaint')
+const Comment = use('App/Models/Comment')
 const { validate } = use('Validator')
 
 /**
@@ -13,8 +14,6 @@ class ComplaintController {
    */
   async index ({ request, response, view }) {
     const complaints = await Complaint.all()
-
-    console.log('complaints', complaints.toJSON());
 
     return view.render('complaint/list', {
       complaints: complaints.toJSON()
@@ -34,7 +33,7 @@ class ComplaintController {
    * POST complaints
    */
   async store ({ request, response, session }) {
-    console.log(request.all());
+
     const validation = await validate(request.all(), {
       recruiter_name: 'required|min:3|max:80',
       city: 'required|min:3|max:80',
@@ -42,7 +41,6 @@ class ComplaintController {
     })
 
     if(validation.fails()) {
-      console.error("Validation error");
       session.withErrors(validation.messages()).flashAll()
       return response.redirect('back')
     }
@@ -65,17 +63,13 @@ class ComplaintController {
    */
   async show ({ params, request, response, view }) {
 
-    const complaint = await Complaint.find(params.id)
-
-    console.log(complaint);
+    const id = params.id
+    const complaint = await Complaint.find(id)
+    const comments = await Comment.query().where('complaint_id', id).fetch()
 
     return view.render('complaint/show', {
       complaint,
-      comments: [
-        {id: 1},
-        {id: 2},
-        {id: 3}
-      ]
+      comments: comments.toJSON()
     })
   }
 

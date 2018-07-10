@@ -1,5 +1,8 @@
 'use strict'
 
+const Comment = use('App/Models/Comment')
+const { validate } = use('Validator')
+
 /**
  * Resourceful controller for interacting with comments
  */
@@ -22,11 +25,26 @@ class CommentController {
    * Create/save a new comment.
    * POST comments
    */
-  async store ({ request, response }) {
+  async store ({ request, response, params, session }) {
 
-    console.log(request.all());
+    const id =  params.id
+    const validation = await validate(request.all(), {
+      body: 'required|min:10|max:1000'
+    })
 
-    return response.redirect('back')
+    if(validation.fails()) {
+      console.error("Validation error");
+      session.withErrors(validation.messages()).flashAll()
+      return response.redirect('back')
+    }
+
+    const comment = new Comment()
+    comment.body = request.input('body')
+    comment.complaint_id = id
+
+    await comment.save()
+
+    return response.redirect(`/complaints/${id}`)
   }
 
   /**

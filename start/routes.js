@@ -27,9 +27,8 @@ Route.get('/complaints/:id', 'ComplaintController.show')
 
 Route.post('/complaints', 'ComplaintController.store')
 
+Route.post('/complaints/:id/comments', 'CommentController.store')
+
 Route.put('/complaints/:id', 'ComplaintController.update')
 
 Route.delete('/complaints/:id', 'ComplaintController.destroy')
-
-
-Route.post('/comments', 'CommentController.store')
