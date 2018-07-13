@@ -32,3 +32,8 @@ Route.post('/complaints/:id/comments', 'CommentController.store')
 Route.put('/complaints/:id', 'ComplaintController.update')
 
 Route.delete('/complaints/:id', 'ComplaintController.destroy')
+
+
+Route.get('/login', 'AuthController.showLogin')
+Route.post('/login', 'AuthController.login')
+Route.get('/logout', 'AuthController.logout')

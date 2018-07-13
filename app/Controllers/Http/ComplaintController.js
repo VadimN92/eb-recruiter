@@ -12,11 +12,12 @@ class ComplaintController {
    * Show a list of all complaints.
    * GET complaints
    */
-  async index ({ request, response, view }) {
+  async index ({ request, response, view, auth }) {
     const complaints = await Complaint.all()
 
+    console.log('auth.check()', auth.check());
     return view.render('complaint/list', {
-      complaints: complaints.toJSON()
+      complaints: complaints.toJSON(),
     })
   }
 
